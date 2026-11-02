@@ -20,7 +20,8 @@
     "evidence": {
       "event_id": "rev-9f2c...",
       "source": "ca.example.org/revocation-list",
-      "retrieved_at": "2026-11-01T09:30:00Z"
+      "retrieved_at": "2026-11-01T09:30:00Z",
+      "route": { "queried_paths": ["ca.example.org/revocation-list"] }
     }
   }
 }
@@ -37,7 +38,8 @@
     "evidence": {
       "source": "ca.example.org/revocation-list",
       "answer": "no revocation event recorded for [start,now)",
-      "answered_at": "2026-11-01T09:30:00Z"
+      "answered_at": "2026-11-01T09:30:00Z",
+      "route": { "queried_paths": ["ca.example.org/revocation-list"] }
     }
   }
 }
@@ -54,7 +56,8 @@
     "evidence": {
       "source": "ca.example.org/revocation-list",
       "error": "timeout after 5000ms",
-      "attempted_at": "2026-11-01T09:30:00Z"
+      "attempted_at": "2026-11-01T09:30:00Z",
+      "route": { "queried_paths": ["ca.example.org/revocation-list"] }
     }
   }
 }
@@ -71,7 +74,10 @@
     "evidence": {
       "local_source": "ca.example.org/revocation-list",
       "local_answer": "no revocation event recorded",
-      "unsynced_path": "federation-B / authority-C",
+      "route": {
+        "queried_paths": ["ca.example.org/revocation-list"],
+        "unsynced_path": "federation-B / authority-C"
+      },
       "coverage_note": "authority-C not yet queried / not in sync"
     }
   }
@@ -88,6 +94,7 @@
     "evaluated_at": "2026-11-01T09:30:00Z",
     "evidence": {
       "attempted": ["query ca.example.org (timeout)", "query federation-B (refused)"],
+      "route": { "queried_paths": ["ca.example.org/revocation-list", "federation-B"] },
       "note": "neither recorded nor not_recorded nor cross_federation_unsynchronised could be established"
     }
   }
@@ -104,7 +111,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "revocation_establishment (PROPOSED — name pending v0.2 anchor)",
   "type": "object",
-  "required": ["value", "evaluated_at", "evidence"],
+  "required": ["value", "evaluator_side", "evaluated_at", "evidence"],
   "properties": {
     "value": {
       "type": "string",
@@ -117,12 +124,27 @@
       ]
     },
     "evaluator_side": { "type": "boolean", "description": "true if recorded by the evaluator-side" },
-    "evaluated_at": { "type": "string", "format": "date-time", "description": "MUST align with the rest of the bundle's assurance conditions" },
-    "evidence": { "type": "object", "description": "per-value evidence per R04 §evidence" }
+    "evaluated_at": { "type": "string", "format": "date-time", "description": "aligned with the rest of the bundle's assurance conditions (same evaluation instant)" },
+    "evidence": {
+      "type": "object",
+      "required": ["route"],
+      "description": "per-value evidence per R04 §evidence",
+      "properties": {
+        "route": {
+          "type": "object",
+          "description": "The federation path(s) actually consulted when the check ran. Recorded at the same instant as the rest of the outcome (R04 §二.3 / §evaluation-time). Source: 0000 'Recording the route'. Distinguishes 'negative was established, later became unverifiable' from 'negative was never established'.",
+          "required": ["queried_paths"],
+          "properties": {
+            "queried_paths": { "type": "array", "items": { "type": "string" }, "description": "Authorities/registries queried at evaluation time (e.g. ca.example.org, federation-B)." },
+            "unsynced_path": { "type": "string", "description": "For cross_federation_unsynchronised only: the federation path on which another authority could hold the record (required when value=cross_federation_unsynchronised)." }
+          }
+        }
+      }
+    }
   }
 }
 ```
-> 注：字段名 `revocation_establishment` 为**提议名**，须对齐 v0.2 真实字段名/章节锚点（红队 B1）。本草图不重定义 D3、不重命名 NOT_EVIDENCED / NOT_DETERMINED。
+> 注：字段名 `revocation_establishment` 为**提议名**，须对齐 v0.2 真实字段名/章节锚点（红队 B1）。本草图不重定义 D3、不重命名 NOT_EVIDENCED / NOT_DETERMINED；`route`/`unsynced_path` 已据 0000 真源补齐（红队 V1 闭合）。
 
 ---
 
@@ -130,11 +152,12 @@
 
 1. **不变量（核心）**：字段**必填**；当什么都建立不了时取值**必须为 `undetermined`**，**绝不回退为 `recorded`**。理由见 A.5。
 2. **evaluator-side 记录**：在产出其余结果同一时刻记录，沿用包内"评估方结果 vs 输入"分离规则。稍后重查的 relying party 记录它自己的值；bundle 须注明携带的是哪个，否则陈旧答案会被读成当前。
-3. **评估时点对齐**：本字段（含 `cross_federation_unsynchronised` 的 route 值）须与其余条件在**同一时刻**评估，不得单独评估；否则 bundle 内部一致却携带一个仅更早成立的 route。
+3. **评估时点对齐**：本字段的取值，连同其 `evidence.route`（对 `cross_federation_unsynchronised` 即 `unsynced_path`），须与其余条件在**同一时刻**评估，不得单独评估；否则 bundle 内部一致却携带一个仅更早成立的 route。
 4. **与既有术语的非重叠映射**：
    - **D3（fetch statuses）** = 制品是否可取回 / 是否尝试取回（**传输层**）。
    - **本字段** = 取回**之后**，关于撤销否定建立了什么（**语义层**）。
    - `NOT_DETERMINED`（D3）≠ 本字段 `undetermined`：前者是传输层"取回无法确定"，后者是语义层"即便制品已取回，撤销否定仍无法建立"。为不引入重叠术语，本稿仅在 D3 之上新增一个独立的、必填的、评估方侧的字段。
+   - **透明声明（红队 V2）**：「D3 fetch statuses」「NOT_EVIDENCED」「NOT_DETERMINED」是 Raphael（0001）指出的本组既有注册表/撤销测试设计中的术语（见 0001 原话）。本稿**仅引用、不重定义**，其精确规范锚点（v0.2 测试规范 RI-INTEROP-HIRE-001）按 B3 待 v0.2 change record 确认；**本稿未编造 URL**。真实可达的一手源已 pin：0000 = `https://lists.w3.org/Archives/Public/public-agent-identity/2026Nov/0000.html` ，0001 = `https://lists.w3.org/Archives/Public/public-agent-identity/2026Nov/0001.html` 。
 
 ---
 

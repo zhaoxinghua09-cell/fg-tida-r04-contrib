@@ -104,7 +104,7 @@ const STATES = [
    scene:"查询 ca.example.org 超时 5000ms。receiver 线上常把它和 not_recorded 混为一谈，本字段要显式拆开。"},
   {code:"cross_federation_unsynchronised", nm:"本地否定，联邦或另存", color:"info",
    mean:"本地来源回答了否定，但在本联邦路径上另一权威可能持有该记录。本地否定不推广到全局。",
-   ev:"须附该联邦路径的覆盖声明（哪些权威已覆盖、哪些未）。",
+   ev:"须附该联邦路径的覆盖声明（哪些权威已覆盖、哪些未），并在 evidence.route.unsynced_path 记录未同步路径（route 须与本字段同刻评估）。",
    scene:"本地答无记录，但 federation-B / authority-C 尚未同步或未被查询——不能据此断言全网未撤销。"},
   {code:"undetermined", nm:"兜底：什么都没建立", color:"grey",
    mean:"上述都不成立。绝不回退为 recorded——因为回退会使每个 bundle 看起来都'已结清'。",
