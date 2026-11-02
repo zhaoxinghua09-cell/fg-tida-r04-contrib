@@ -1,6 +1,6 @@
-# R04 支撑材料包（Supporting Materials for R04 Insertion · 草稿 v3 配套）
+# R04 支撑材料包（Supporting Materials for R04 Insertion · 草稿 v4 配套）
 
-> 配套主稿：`W3C-02_R04_插入稿_草稿.md`（v3）。
+> 配套主稿：`W3C-02_R04_插入稿_草稿.md`（v4）。
 > 用途：作为 R04 书面提交物（经 07 邮箱发往 public-agent-identity）的**支持资料与 demo 实例**，使评审可独立核验，不依赖现场出席。
 > 状态：NOT FINAL，待 L3 单件确认才发。门3 红队压测中（B1/B2/B3 待闭合）。
 
