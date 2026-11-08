@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>R04 五值验证器 v2 · 外人可复跑</title>
+<style>
+  :root{--navy:#0C174D;--gold:#E5B85B;--ink:#101828;--muted:#5B6472;--line:#DEE2E9;--bg:#F7F8FA}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+  .wrap{max-width:980px;margin:0 auto;padding:36px 24px 56px}
+  h1{font-size:28px;color:var(--navy);margin:0 0 6px}
+  .sub{color:var(--muted);margin-bottom:22px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:14px 0}
+  textarea{width:100%;min-height:170px;font:13px/1.5 Consolas,monospace;border:1px solid var(--line);border-radius:8px;padding:10px}
+  button{border:1px solid var(--navy);background:var(--navy);color:#fff;border-radius:8px;padding:8px 14px;margin:8px 8px 0 0;cursor:pointer;font-size:14px}
+  button.gold{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+  pre{background:#0E1526;color:#DCE3F2;border-radius:8px;padding:12px;min-height:44px;white-space:pre-wrap}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{border-bottom:1px solid var(--line);padding:7px 6px;text-align:left;vertical-align:top}
+  code{background:#F1F3F7;border:1px solid var(--line);border-radius:5px;padding:1px 5px;font-size:12.5px}
+  .muted{color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>R04 五值验证器 v2</h1>
+  <div class="sub">外人可复跑：输入 JSON → 校验 → PASS/FAIL + 原因。五值：recorded / not_recorded / query_failed / cross_federation_unsynchronised / undetermined</div>
+
+  <div class="card">
+    <textarea id="input">{
+  "revocation_establishment": {
+    "value": "not_recorded",
+    "evaluator_side": true,
+    "evaluated_at": "2026-11-01T09:30:00Z",
+    "evidence": {
+      "source": "ca.example.org/revocation-list",
+      "answer": "no revocation event recorded for [2026-01-01,2026-11-01)",
+      "answered_at": "2026-11-01T09:30:00Z"
+    }
+  }
+}</textarea>
+    <div>
+      <button id="validate">Validate</button>
+      <button id="example" class="gold">加载示例</button>
+      <button id="selftest">Run built-in negative controls</button>
+    </div>
+    <pre id="out">—</pre>
+  </div>
+
+  <div class="card">
+    <h2 style="font-size:17px;color:var(--navy);margin:0 0 10px">规则（与 R04 支撑包一致）</h2>
+    <table>
+      <tr><th>value</th><th>必需 evidence</th><th>禁止携带</th></tr>
+      <tr><td><code>recorded</code></td><td>event_id / source / retrieved_at</td><td>query 错误</td></tr>
+      <tr><td><code>not_recorded</code></td><td>source / answer / answered_at</td><td>query_failed / undetermined 的字段</td></tr>
+      <tr><td><code>query_failed</code></td><td>error / attempted_at</td><td>answer（会像 not_recorded）</td></tr>
+      <tr><td><code>cross_federation_unsynchronised</code></td><td>local_source / local_answer / route.unsynced_path</td><td>recorded 证据</td></tr>
+      <tr><td><code>undetermined</code></td><td>attempted</td><td>event_id（recorded 证据）</td></tr>
+    </table>
+  </div>
+
+  <p class="muted">不变量：无记录 ≠ 已撤销 ≠ 查询失败；undetermined 不得回落为 recorded。</p>
+</div>
+<script>
+const VALUES = ["recorded","not_recorded","query_failed","cross_federation_unsynchronised","undetermined"];
+const RULES = {
+  recorded: {req:["event_id","source","retrieved_at"]},
+  not_recorded: {req:["source","answer","answered_at"]},
+  query_failed: {req:["error","attempted_at"]},
+  cross_federation_unsynchronised: {req:["local_source","local_answer","route.unsynced_path"]},
+  undetermined: {req:["attempted"]}
+};
+function byId(id){ return document.getElementById(id); }
+function has(obj, path){
+  const parts = path.split(".");
+  let cur = obj;
+  for(const p of parts){ if(cur == null || typeof cur !== "object") return false; cur = cur[p]; }
+  return cur !== undefined && cur !== null && cur !== "";
+}
+function validate(bundle){
+  const errs = [];
+  const re = bundle && bundle.revocation_establishment;
+  if(!re) return {ok:false, errs:["missing revocation_establishment"]};
+  if(!VALUES.includes(re.value)) errs.push("invalid value: " + JSON.stringify(re.value));
+  if(re.evaluator_side !== true) errs.push("evaluator_side must be true");
+  if(!re.evaluated_at) errs.push("evaluated_at missing");
+  const ev = re.evidence || {};
+  const rule = RULES[re.value];
+  if(rule){
+    for(const p of rule.req){ if(!has(ev,p)) errs.push("evidence." + p + " missing for value=" + re.value); }
+    if(re.value === "undetermined" && ev.event_id) errs.push("undetermined must not carry recorded evidence (event_id)");
+    if(re.value === "query_failed" && ev.answer) errs.push("query_failed must not carry an answer (looks like not_recorded)");
+    if(re.value === "recorded" && ev.error) errs.push("recorded must not carry query error");
+  }
+  return {ok: errs.length === 0, errs};
+}
+function render(r){
+  const out = byId("out");
+  out.textContent = (r.ok ? "PASS" : "FAIL") + "\n" + (r.ok ? "all checks passed" : r.errs.map(e => "- " + e).join("\n"));
+}
+function init(){
+  const btn = byId("validate"), ex = byId("example"), st = byId("selftest"), input = byId("input"), out = byId("out");
+  if(!btn || !ex || !st || !input || !out) return;
+  btn.addEventListener("click", function(){
+    let b;
+    try { b = JSON.parse(input.value); }
+    catch(e){ out.textContent = "FAIL\nJSON parse error: " + e.message; return; }
+    render(validate(b));
+  });
+  ex.addEventListener("click", function(){
+    input.value = JSON.stringify({revocation_establishment:{value:"not_recorded",evaluator_side:true,evaluated_at:"2026-11-01T09:30:00Z",evidence:{source:"ca.example.org/revocation-list",answer:"no revocation event recorded for [2026-01-01,2026-11-01)",answered_at:"2026-11-01T09:30:00Z"}}}, null, 2);
+  });
+  st.addEventListener("click", function(){
+    const tests = [
+      ["valid recorded", {revocation_establishment:{value:"recorded",evaluator_side:true,evaluated_at:"t",evidence:{event_id:"e",source:"s",retrieved_at:"t"}}}, true],
+      ["valid not_recorded", {revocation_establishment:{value:"not_recorded",evaluator_side:true,evaluated_at:"t",evidence:{source:"s",answer:"none in [a,b)",answered_at:"t"}}}, true],
+      ["valid query_failed", {revocation_establishment:{value:"query_failed",evaluator_side:true,evaluated_at:"t",evidence:{error:"timeout",attempted_at:"t"}}}, true],
+      ["negative: not_recorded with error only", {revocation_establishment:{value:"not_recorded",evaluator_side:true,evaluated_at:"t",evidence:{source:"s",error:"timeout"}}}, false],
+      ["negative: undetermined carrying event_id", {revocation_establishment:{value:"undetermined",evaluator_side:true,evaluated_at:"t",evidence:{attempted:["a"],event_id:"e"}}}, false],
+      ["negative: unknown value", {revocation_establishment:{value:"revoked",evaluator_side:true,evaluated_at:"t",evidence:{}}}, false],
+      ["negative: evaluator_side=false", {revocation_establishment:{value:"recorded",evaluator_side:false,evaluated_at:"t",evidence:{event_id:"e",source:"s",retrieved_at:"t"}}}, false]
+    ];
+    const lines = []; let pass = 0;
+    for(const [name,b,expect] of tests){
+      const r = validate(b); const got = r.ok; const ok = (got === expect);
+      if(ok) pass++;
+      lines.push((ok?"OK  ":"BAD ") + name + " => " + (got?"PASS":"FAIL") + (ok?"":" [expected "+(expect?"PASS":"FAIL")+"]"));
+    }
+    out.textContent = "SELFTEST " + pass + "/" + tests.length + "\n" + lines.join("\n");
+  });
+}
+if(document.readyState === "loading"){ document.addEventListener("DOMContentLoaded", init); } else { init(); }
+</script>
+</body>
+</html>
