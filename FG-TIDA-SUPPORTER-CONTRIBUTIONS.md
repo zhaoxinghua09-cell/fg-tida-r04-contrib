@@ -67,7 +67,7 @@
 2. The same content is never submitted twice under two accounts.
 3. Theory versions always cite lgd-theory (DOI); any paraphrase defers to the SSOT.
 4. Externally, everything is presented in an individual capacity (the accounts divide the work, each with its role); ITU correspondence uses the single coordinating mailbox **`zhaoxinghua06@126.com`**; W3C correspondence uses **`zhaoxinghua07@126.com`**. The coordinating mailbox for ITU is therefore a single, named address, so a rapporteur or the secretariat has exactly one point of contact.
-5. **The four accounts are four separate GitHub logins, not one account with four labels.** Each has its own credentials. GitHub enforces the consequence: a session authenticated as one account cannot push to a repository owned by another, so a cross-account write fails outright rather than succeeding silently. Every write to this repository was made by its own owner account (`zhaoxinghua09-cell`), and the same test is available to anyone who checks the commit authorship.
+5. **The four accounts are four separate GitHub logins, not one account with four labels.** Each has its own credentials. **The check performed, and its limit:** the credential used in this session authenticates as `zhaoxinghua09-cell`, and that is also the owner of the repositories written to here. This is a statement about the credential in use, **not** a claim that no account can ever write to another owner's repository — GitHub does permit that when write access is granted (collaborator, deploy key or app), and a pushed commit's author field is not proof of which credential pushed it. **A historical audit of every commit across all four accounts has not been performed**, so no such claim is made here.
 
 ---
 
