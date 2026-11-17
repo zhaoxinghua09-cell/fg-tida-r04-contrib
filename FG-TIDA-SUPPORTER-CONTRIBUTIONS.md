@@ -26,7 +26,7 @@
 
 | # | Contribution point | Corresponding ToR item | Our authoritative backing |
 |---|---|---|---|
-| C1 | **Trust lifecycle framework**: establish → continuous assessment → downgrade → revoke, with evidence standards at each stage | Annex A.2.2 | The original LGD end-to-end governance theory (Registry · Evidence · Gates); P0/P3 papers (DOI 10.5281/zenodo.22456647), .ots timestamps, plagiarism-check reports |
+| C1 | **Trust lifecycle framework**: establish → continuous assessment → downgrade → revoke, with evidence standards at each stage | Annex A.2.2 | The LGD end-to-end governance theory (Registry · Evidence · Gates), held in **`zhaoxinghua09-cell/lgd-theory`** — that is the repository carrying the theory text (`.zenodo.json`, `CITATION.cff`, `CHANGELOG.md` present). P0/P3 papers: DOI 10.5281/zenodo.22456647. Note: a same-named repository exists under the organisation account (`Medxpert-org/lgd-theory`); it holds only community templates and is archived — **it is not the theory text**. |
 | C2 | **Assessment criteria and benchmarks**: methods for assessing trustworthiness / interoperability / accountability / human oversight, including evidence grading and bias control | ToR 3.4 / 4.5 | The full evaluation-account set: authoritative criteria (five-level reading, Verified → Preliminary), test-expert handbook L0–L13, multi-judge plus human anchoring, AB/BA bias control, GRADE evidence grading, OWASP/NIST/ISO standard mapping |
 | C3 | **Behavioural trust signals and silent failures**: behavioural baselines, anomaly detection, evidence data model | Annex A.2.8 | The Silent Failure Catalog plus an evaluation evidence chain (hash / .ots / manifest) — the detection domain for "no error was raised but it was wrong" |
 | C4 | **Terminology and definitions package**: registration / evidence / gates as interoperable terms | ToR 3.1 | lgd-glossary (bilingual definitions, versioned revision history) |
@@ -35,9 +35,9 @@
 
 | # | Contribution point | Corresponding ToR item | Our authoritative backing |
 |---|---|---|---|
-| C5 | **Security gap analysis of open-source agents** | Annex A.1.8 | Full sweep of the theory account's 171 public repositories (in progress) + skill-audit scanner + proactive evaluation regime (PROACTIVE_EVALUATION) — empirical gap analysis of the open-source AI tool chain is exactly this item |
+| C5 | **Security gap analysis of open-source agents** | Annex A.1.8 | A repository-level sweep of the theory account's **171 public repositories** (size, licence, archive state, language, activity), plus a skill-audit scanner and a proactive evaluation regime. Status: **sweep completed and reported; a written gap report is still in progress.** Empirical gap analysis of the open-source AI tool chain is precisely this item. |
 | C6 | **Human oversight integration framework**: intervention triggers / escalation criteria / audit trail / responsibility allocation | Annex A.2.4 | The principle that issuing authority rests with a human (criterion P7), two independent reviewers plus a third adjudicator, procedural justice (14-day response / 24-hour correction / right to present a rejoinder) |
-| C7 | **Machine-readable trust metadata** in practice | ToR 4.4 | schema.jsonld / .zenodo.json / CITATION.cff (already in place, Schema.org compatible) |
+| C7 | **Machine-readable trust metadata**: the intended approach | ToR 4.4 | Approach: Schema.org-compatible `schema.jsonld`, `.zenodo.json` and `CITATION.cff` per repository. **Status: implemented in `zhaoxinghua09-cell/lgd-theory`, NOT yet present in the four FG-TIDA contribution repositories** (checked 2026-11-17). Stated as a plan, not as a capability already in place. |
 
 ### P2 use-case contribution
 
@@ -67,6 +67,7 @@
 2. The same content is never submitted twice under two accounts.
 3. Theory versions always cite lgd-theory (DOI); any paraphrase defers to the SSOT.
 4. Externally, everything is presented in an individual capacity (the accounts divide the work, each with its role); ITU correspondence uses the single coordinating mailbox **`zhaoxinghua06@126.com`**; W3C correspondence uses **`zhaoxinghua07@126.com`**. The coordinating mailbox for ITU is therefore a single, named address, so a rapporteur or the secretariat has exactly one point of contact.
+5. **The four accounts are four separate GitHub logins, not one account with four labels.** Each has its own credentials. GitHub enforces the consequence: a session authenticated as one account cannot push to a repository owned by another, so a cross-account write fails outright rather than succeeding silently. Every write to this repository was made by its own owner account (`zhaoxinghua09-cell`), and the same test is available to anyone who checks the commit authorship.
 
 ---
 
