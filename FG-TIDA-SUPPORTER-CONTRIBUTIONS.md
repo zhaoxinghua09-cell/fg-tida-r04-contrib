@@ -1,93 +1,93 @@
-# FG-TIDA SUPPORTER CONTRIBUTIONS — 支持者贡献方案
-# FG-TIDA 支持者贡献方案（zhaoxinghua09-cell 个人 · 支持者定位，提供贡献点）
+# FG-TIDA SUPPORTER CONTRIBUTIONS — contribution proposal
+# (zhaoxinghua09-cell, individual · supporter positioning, offering contribution points)
 
-> 维护：zhaoxinghua09-cell（个人贡献者） ｜ 生效：2026-10-14 ｜ 依据：FG-TIDA ToR 全文（itu.int/en/ITU-T/focusgroups/tida/Pages/ToR.aspx）
-> **定位声明：本人以「支持者（supporter）」身份参与 FG-TIDA——不主导、不重复、不越界；按 ToR 提供本人可支撑的贡献点，供焦点组共识采纳。**
-> 双语：英文在前，中文在后，均完整。
+> Maintained by: zhaoxinghua09-cell (individual contributor) | In effect from: 2026-10-14 | Basis: the full FG-TIDA Terms of Reference (itu.int/en/ITU-T/focusgroups/tida/Pages/ToR.aspx)
+> **Positioning statement: I participate in FG-TIDA as a supporter — not leading, not duplicating, not overstepping; offering, per the ToR, the contribution points I am able to support, for the focus group to adopt by consensus.**
 
 ---
 
-## 一、支持者定位（Supporter positioning）
+## 1. Supporter positioning
 
-| 维度 | 我们的立场 |
+| Dimension | Our position |
 |---|---|
-| 角色 Role | 支持者（supporter / contributor），非议程主导者 |
-| 原则 | 遵守 ITU A.7：不与既有研究组/焦点组工作重复；贡献与否由焦点组共识决定 |
-| 边界 | 不碰 FG-TIDA out-of-scope：Agentic AI protocols / AI governance / 国家数字身份内容 |
-| 姿态 | 本人提供"可用即贡献"的贡献点；采纳权在焦点组，不承诺采纳 |
-| 名义 | 三账号分工（理论号+评测号+产品号），一个贡献包一个署名身份，避免角色冲突 |
+| Role | Supporter / contributor, not an agenda leader |
+| Principle | Complies with ITU A.7: no duplication of existing study group / focus group work; whether a contribution is taken up is decided by focus group consensus |
+| Boundary | Does not touch FG-TIDA out-of-scope areas: agentic AI protocols / AI governance / national digital identity content |
+| Stance | I offer contribution points on a "usable is contributed" basis; the right of adoption rests with the focus group, with no commitment to adoption |
+| Identity | Four accounts with separated roles (theory, evaluation, product, organisation), one signature identity per contribution package, to avoid role conflict |
 
-> **关键词纪律**：贡献措辞使用 FG-TIDA 语言（trust management / lifecycle assurance / continuous assessment / accountability / behavioural signals），**不以 "AI governance" 为主题词**（ToR 明确 out of scope）。
-
----
-
-## 二、贡献点清单（Contribution points — 按权威支撑强度排序）
-
-### P0 核心贡献点
-
-| # | 贡献点 | 对应 ToR 项 | 我们的权威支撑 |
-|---|---|---|---|
-| C1 | **信任生命周期框架**（Trust lifecycle framework）：建立→持续评估→降级→撤销，每阶段给出证据标准 | Annex A.2.2 | LGD 全程治理论（Registry·Evidence·Gates）原创理论；P0/P3 论文（DOI 10.5281/zenodo.22456647）、.ots、查重报告 |
-| C2 | **评估准则与基准**（Assessment criteria & benchmarks）：可信度/互操作性/问责/人类监督的评估方法，含证据分级与偏倚控制 | ToR 3.4 / 4.5 | 评测号全套：权威准则（五级解读 Verified→Preliminary）、测试专家手册 L0-L13、多判官+人工锚定、AB/BA 偏倚控制、GRADE 证据分级、OWASP/NIST/ISO 标准映射 |
-| C3 | **行为信任信号与静默失败**（Behavioural trust signals & silent failures）：行为基线、异常检测、证据数据模型 | Annex A.2.8 | 静默失败目录（Silent Failure Catalog）+ 评测证据链（hash/.ots/manifest）——"没报错但错了"的检测域 |
-| C4 | **术语与定义包**（Terminology）：注册/证据/门禁 → registration/evidence/gates 的互操作术语 | ToR 3.1 | lgd-glossary（中英双语定义、版本化修订历史） |
-
-### P1 强贡献点
-
-| # | 贡献点 | 对应 ToR 项 | 我们的权威支撑 |
-|---|---|---|---|
-| C5 | **开源代理安全差距分析**（Security gap analysis of open-source agents） | Annex A.1.8 | 理论号 109 仓全量评测（进行中）+ skill-audit 扫描器 + 主动评测制度（PROACTIVE_EVALUATION）——对开源 AI 工具链的实证差距分析正是此项 |
-| C6 | **人类监督集成框架**（Human oversight integration）：干预触发/升级标准/审计轨迹/责任分配 | Annex A.2.4 | "签发权在人"原则（准则 P7）、双人独立+第三裁决、程序正义（14 天回应/24h 更正/申诉并陈） |
-| C7 | **机器可读信任元数据**（Machine-readable trust metadata）实践 | ToR 4.4 | schema.jsonld / .zenodo.json / CITATION.cff（已落地，Schema.org 兼容） |
-
-### P2 用例贡献
-
-| # | 贡献点 | 对应 ToR 项 | 我们的权威支撑 |
-|---|---|---|---|
-| C8 | **行业 use case：医械合规工具链（脱敏）实测** | ToR 4.1 / A.3.1 | 某医械合规工具链（脱敏）实测报告 + 脱敏实测证据（真实部署证据，以用例提供方/个人身份署名） |
+> **Keyword discipline**: contributions use FG-TIDA language (trust management / lifecycle assurance / continuous assessment / accountability / behavioural signals), and do **not** take "AI governance" as a theme keyword (the ToR explicitly places it out of scope).
 
 ---
 
-## 三、账号分工矩阵（三号区分、不冲突）
+## 2. Contribution points (ordered by strength of authoritative backing)
 
-| 账号 | 角色 | 贡献内容 | 署名身份 | 互不冲突规则 |
+### P0 core contribution points
+
+| # | Contribution point | Corresponding ToR item | Our authoritative backing |
+|---|---|---|---|
+| C1 | **Trust lifecycle framework**: establish → continuous assessment → downgrade → revoke, with evidence standards at each stage | Annex A.2.2 | The original LGD end-to-end governance theory (Registry · Evidence · Gates); P0/P3 papers (DOI 10.5281/zenodo.22456647), .ots timestamps, plagiarism-check reports |
+| C2 | **Assessment criteria and benchmarks**: methods for assessing trustworthiness / interoperability / accountability / human oversight, including evidence grading and bias control | ToR 3.4 / 4.5 | The full evaluation-account set: authoritative criteria (five-level reading, Verified → Preliminary), test-expert handbook L0–L13, multi-judge plus human anchoring, AB/BA bias control, GRADE evidence grading, OWASP/NIST/ISO standard mapping |
+| C3 | **Behavioural trust signals and silent failures**: behavioural baselines, anomaly detection, evidence data model | Annex A.2.8 | The Silent Failure Catalog plus an evaluation evidence chain (hash / .ots / manifest) — the detection domain for "no error was raised but it was wrong" |
+| C4 | **Terminology and definitions package**: registration / evidence / gates as interoperable terms | ToR 3.1 | lgd-glossary (bilingual definitions, versioned revision history) |
+
+### P1 strong contribution points
+
+| # | Contribution point | Corresponding ToR item | Our authoritative backing |
+|---|---|---|---|
+| C5 | **Security gap analysis of open-source agents** | Annex A.1.8 | Full sweep of the theory account's 171 public repositories (in progress) + skill-audit scanner + proactive evaluation regime (PROACTIVE_EVALUATION) — empirical gap analysis of the open-source AI tool chain is exactly this item |
+| C6 | **Human oversight integration framework**: intervention triggers / escalation criteria / audit trail / responsibility allocation | Annex A.2.4 | The principle that issuing authority rests with a human (criterion P7), two independent reviewers plus a third adjudicator, procedural justice (14-day response / 24-hour correction / right to present a rejoinder) |
+| C7 | **Machine-readable trust metadata** in practice | ToR 4.4 | schema.jsonld / .zenodo.json / CITATION.cff (already in place, Schema.org compatible) |
+
+### P2 use-case contribution
+
+| # | Contribution point | Corresponding ToR item | Our authoritative backing |
+|---|---|---|---|
+| C8 | **Industry use case: medical-device compliance tool chain (anonymised) field test** | ToR 4.1 / A.3.1 | Field-test report on a medical-device compliance tool chain (anonymised) plus anonymised field-test evidence (real deployment evidence, signed in the capacity of the use-case provider / individual) |
+
+---
+
+## 3. Account separation matrix (four accounts, distinct, non-conflicting)
+
+| Account | Role | Contribution content | Signature identity | Non-conflict rule |
 |---|---|---|---|---|
-| **zhaoxinghua09-cell（理论号）** | 理论之源 | C1 生命周期框架（理论版）、C4 术语 | 理论作者（引用 DOI） | 理论只以 lgd-theory SSOT 为源；评测号不重复发布理论 |
-| **LGD-Eval（评测号）** | 独立评测执行（个人项目） | C2 评估准则/基准、C3 静默失败/证据、C5 差距分析、C6 人类监督、C7 元数据 | 独立评测执行（个人项目） | 评测号引用理论号 DOI，不自创理论版本；不写被评方 |
-| **stevenzhao07（产品号 · MedXpert 产品工具线 GitHub 账号）** | 工具链实现 | C8 use case（某医械合规工具链脱敏实测） | 工具链实现者（用例提供方，个人身份） | 只作为被测/用例提供方；不参与标准文本起草 |
+| **zhaoxinghua09-cell** (theory account) | Source of theory | C1 lifecycle framework (theory version), C4 terminology | Theory author (cites the DOI) | Theory originates only from the lgd-theory SSOT; the evaluation account does not republish theory |
+| **LGD-Eval** (evaluation account) | Independent evaluation execution (personal project) | C2 assessment criteria / benchmarks, C3 silent failures / evidence, C5 gap analysis, C6 human oversight, C7 metadata | Independent evaluation execution (personal project) | Cites the theory account's DOI; does not invent its own version of the theory; does not write as the evaluated party |
+| **stevenzhao07** (product account · MedXpert product tool-chain GitHub account) | Tool-chain implementation | C8 use case (anonymised field test of a medical-device compliance tool chain) | Tool-chain implementer (use-case provider, individual capacity) | Only as tested party / use-case provider; does not take part in drafting the standard text |
+| **Medxpert-org** (organisation account) | Organisation-level publication | Organisational assets kept separate from the three individual accounts | Organisation | Kept distinct from the three personal accounts; no duplicate submission of the same content |
 
-> 注：stevenzhao07 为 MedXpert 产品工具线 GitHub 账号，与 zhaoxinghua07@126.com（W3C 标准参与邮箱）为不同定位账号，互不混用；与 zhaoxinghua09-cell（理论号）、LGD-Eval（评测号）三者分工见 `THREE_ACCOUNT_ACTION_PLAN.md`。
+> Note: stevenzhao07 is the MedXpert product tool-chain GitHub account and is a differently positioned account from zhaoxinghua07@126.com (the W3C standards-participation mailbox); the two are not mixed. The division of labour across all four accounts is recorded in `THREE_ACCOUNT_ACTION_PLAN.md`.
 
-**冲突避免四则**：
-1. 一个贡献包只署一个身份（不联名竞标同一工作项）。
-2. 同一内容不以两个账号重复提交。
-3. 理论版本一律引用 lgd-theory（DOI），任何转述以 SSOT 为准。
-4. 对外统一以个人身份呈现（三账号分工，各司其职）；与 ITU 沟通以单一协调邮箱/账号为主。
+**Four conflict-avoidance rules**:
+1. One contribution package carries exactly one identity (never co-bidding on the same work item).
+2. The same content is never submitted twice under two accounts.
+3. Theory versions always cite lgd-theory (DOI); any paraphrase defers to the SSOT.
+4. Externally, everything is presented in an individual capacity (the accounts divide the work, each with its role); communication with ITU uses a single coordinating mailbox / account.
 
 ---
 
-## 四、支持者行动清单（Supporter action list）
+## 4. Supporter action list
 
-| 时间 | 动作 | 状态 |
+| Timing | Action | Status |
 |---|---|---|
-| 立即 | 注册免费 ITU 账号（itu.int）并订阅 FG-TIDA 邮件列表（fgtida@lists.itu.int） | 🔶 待用户/主人执行（需个人邮箱） |
-| 立即 | 联络焦点组秘书处 tsbfgtida@itu.int：表明支持者身份+贡献意向（附 C1/C2 摘要） | 🔶 待用户/主人执行 |
-| 2026-10 | 起草 C1（信任生命周期框架）与 C2（评估准则基准）贡献稿（ITU 输入文档模板） | 🔶 本人/本仓准备 |
-| 2026-11-30/12-01 | FG-TIDA 首次面对面会议（巴黎 UNESCO 总部）——现场或在线注册参与 | 🔶 待登记 |
-| 2027-01-26-27 | 第二次会议（日内瓦）：提交修订贡献稿 | 🔶 规划 |
-| 持续 | C5 差距分析随 109 仓评测完成提交；C8 use case 随 AI for Good 窗口提交 | 🔶 规划 |
+| Now | Register a free ITU account (itu.int) and subscribe to the FG-TIDA mailing list (fgtida@lists.itu.int) | DONE — ITU account registered; mailing-list subscription to be confirmed |
+| Now | Contact the focus group secretariat tsbfgtida@itu.int: state supporter identity and contribution intent (with C1/C2 summaries) | Pending — requires the account holder |
+| 2026-10 | Draft the C1 (trust lifecycle framework) and C2 (assessment criteria and benchmarks) contribution texts (ITU input-document template) | In preparation in this repository |
+| 2026-11-30 / 12-01 | FG-TIDA first face-to-face meeting (UNESCO HQ, Paris) — participate on site or by remote registration | Pre-registration due 2026-11-20 |
+| 2027-01-26 / 27 | Second meeting (Geneva): submit revised contribution texts | Planned |
+| Continuous | C5 gap analysis submitted as the 171-repository sweep completes; C8 use case submitted in the AI for Good window | Planned |
 
-> 贡献输入文档模板见 FG-TIDA 官网 Templates（Input documents / Technical Report / Technical Specification）；工作语言为英文。
-
----
-
-## 五、支持者公信力承诺（Supporter credibility）
-
-1. **原创性**：每个贡献点挂首创证据（DOI/.ots/查重报告），不虚称首创。
-2. **可验证**：贡献内容附公开仓链接与实测证据，ITU 可独立复核。
-3. **中立**：非商业、无立场、无地域偏见；只提供最好的一版。
-4. **透明**：贡献采纳与否公开记录；不承诺、不夸大。
+> The contribution input-document template is on the FG-TIDA site under Templates (Input documents / Technical Report / Technical Specification); the working language is English.
 
 ---
 
-*Evaluating Autonomy. Verifying Governance. / 评测自治之物，验证治理主张。*
+## 5. Supporter credibility undertakings
+
+1. **Originality**: every contribution point carries first-origin evidence (DOI / .ots / plagiarism-check report); no claim of priority that cannot be shown.
+2. **Verifiability**: contribution content comes with public repository links and field-test evidence, so ITU can verify independently.
+3. **Neutrality**: non-commercial, no advocacy position, no regional bias; only the best version available is offered.
+4. **Transparency**: whether a contribution is adopted is recorded openly; no promises, no exaggeration.
+
+---
+
+*Evaluating Autonomy. Verifying Governance.*

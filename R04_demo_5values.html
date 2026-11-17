@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>R04 · 撤销证据建立状态 · 5 值交互 Demo</title>
+<title>R04 · Revocation-establishment state · 5-value interactive demo</title>
 <style>
   :root{
     --bg:#f6f9fc; --card:#ffffff; --ink:#0b1f33; --sub:#5a6b7b;
@@ -12,7 +12,7 @@
     --shadow:0 6px 24px rgba(20,30,60,.08);
   }
   *{box-sizing:border-box;}
-  body{margin:0;font-family:-apple-system,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;
+  body{margin:0;font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     background:var(--bg);color:var(--ink);line-height:1.6;}
   .wrap{max-width:960px;margin:0 auto;padding:32px 20px 64px;}
   header.hero{background:linear-gradient(135deg,#635bff 0%,#7b6bff 45%,#9b8bff 100%);
@@ -55,61 +55,61 @@
 <body>
 <div class="wrap">
   <header class="hero">
-    <h1>R04 · 撤销证据建立状态（revocation_establishment）</h1>
-    <p>5 值交互 Demo — 区分 receiver 线上常被混淆的若干撤销否定结果，避免猜测。</p>
-    <span class="tag">W3C Agent Identity CG · 配套 RI-INTEROP-HIRE-001 v0.2 · NOT FINAL</span>
+    <h1>R04 · Revocation-establishment state (revocation_establishment)</h1>
+    <p>5-value interactive demo — separating the several negative revocation outcomes that are routinely conflated on the receiver side, so that none has to be guessed.</p>
+    <span class="tag">W3C Agent Identity CG · companion to RI-INTEROP-HIRE-001 v0.2 · NOT FINAL</span>
   </header>
 
   <section>
-    <h2><span class="dot"></span>一、点击任意状态卡片，查看含义 / 所需证据 / 场景</h2>
+    <h2><span class="dot"></span>1. Click any state card to see its meaning, required evidence and scenario</h2>
     <div class="grid" id="grid"></div>
     <div class="detail" id="detail">
-      <h3>选择一个状态查看详情 →</h3>
-      <p style="color:var(--sub);margin:6px 0 0;">本字段为<b>必填</b>；当其什么都建立不了时取值必须为 <code>undetermined</code>，<b>绝不回退为 recorded</b>。</p>
+      <h3>Select a state to see the detail →</h3>
+      <p style="color:var(--sub);margin:6px 0 0;">This field is <b>mandatory</b>; when it establishes nothing at all the value must be <code>undetermined</code>, and must <b>never fall back to recorded</b>.</p>
     </div>
     <div class="invariant">
-      <b>⛔ 核心不变量：</b> 可选字段或回退为 <code>recorded</code> 的字段，会在交付压力下被留空，于是每个 bundle 看起来都"已结清"——正是要消除的失效模式。因此 <code>undetermined</code> 是兜底，不是默认成功。
+      <b>&#9940; Core invariant:</b> an optional field, or one that falls back to <code>recorded</code>, gets left empty under delivery pressure — and then every bundle looks "settled". That is exactly the failure mode to be eliminated. <code>undetermined</code> is therefore the fallback, not a default success.
     </div>
   </section>
 
   <section>
-    <h2><span class="dot"></span>二、小模拟器：给定来源响应，产出正确取值</h2>
+    <h2><span class="dot"></span>2. Mini-simulator: given the source's response, produce the correct value</h2>
     <div class="sim">
-      <p style="margin:0;font-size:14px;color:var(--sub);">设想你是 evaluator-side，向撤销来源查询某凭证。选择来源的实际响应：</p>
+      <p style="margin:0;font-size:14px;color:var(--sub);">Imagine you are evaluator-side, querying a revocation source about a credential. Choose the source's actual response:</p>
       <div class="opts" id="simOpts"></div>
-      <div class="result" id="simResult">请选择一个响应 →</div>
-      <p class="ref">注：<code>cross_federation_unsynchronised</code> 仅在"本地否定 + 联邦另一路径可能另存记录"时出现，不推广为全局否定。</p>
+      <div class="result" id="simResult">Choose a response →</div>
+      <p class="ref">Note: <code>cross_federation_unsynchronised</code> arises only when a local negative coexists with the possibility that another federation path holds a separate record. It does not generalise into a global negative.</p>
     </div>
   </section>
 
   <footer>
-    本 demo 为 R04 插入稿（v4）的配套实例，用于书面提交物，使评审可独立核验、不依赖现场出席。<br/>
-    门7 备注：已发布至理论号公开仓 `zhaoxinghua09-cell/fg-tida-r04-contrib`，外人零凭据可直接实测：`https://github.com/zhaoxinghua09-cell/fg-tida-r04-contrib/blob/main/R04_demo_5values.html`
+    This demo is the companion instance for the R04 insertion draft (v4), provided so that the written submission can be checked independently, without depending on attendance on site.<br/>
+    Gate 7 note: published in the theory-account public repository `zhaoxinghua09-cell/fg-tida-r04-contrib`; anyone can run it with zero credentials: `https://github.com/zhaoxinghua09-cell/fg-tida-r04-contrib/blob/main/R04_demo_5values.html`
   </footer>
 </div>
 
 <script>
 const STATES = [
-  {code:"recorded", nm:"有撤销事件，已取回", color:"ok",
-   mean:"来源回答了，且答案明确——存在一条撤销事件，且已被取回。bundle 自身陈述结清了'是否被撤销'的问题。",
-   ev:"须附已取回的撤销事件引用（事件 ID / 时间戳 / 来源）。",
-   scene:"招聘平台查到 ca.example.org 撤销清单中确有该凭证的 rev-9f2c 事件，并取回了它。"},
-  {code:"not_recorded", nm:"来源答：区间未记录", color:"warn",
-   mean:"来源回答了，答案是'该区间未记录撤销事件'。支持一条否定陈述，但不等同于'永远未撤销'（区间之外未覆盖）。",
-   ev:"须附来源的否定回答证据（来源、区间、回答时间）。",
-   scene:"来源答：在 [start, now) 区间未记录撤销事件。可说'已查区间未撤销'，不能说'全网从未撤销'。"},
-  {code:"query_failed", nm:"来源未回答", color:"bad",
-   mean:"来源没有回答（超时/拒绝）。因此任何方向都不支持——既不能说未撤销，也不能说已撤销。",
-   ev:"须附查询失败记录（来源、时间、错误/超时）。",
-   scene:"查询 ca.example.org 超时 5000ms。receiver 线上常把它和 not_recorded 混为一谈，本字段要显式拆开。"},
-  {code:"cross_federation_unsynchronised", nm:"本地否定，联邦或另存", color:"info",
-   mean:"本地来源回答了否定，但在本联邦路径上另一权威可能持有该记录。本地否定不推广到全局。",
-   ev:"须附该联邦路径的覆盖声明（哪些权威已覆盖、哪些未），并在 evidence.route.unsynced_path 记录未同步路径（route 须与本字段同刻评估）。",
-   scene:"本地答无记录，但 federation-B / authority-C 尚未同步或未被查询——不能据此断言全网未撤销。"},
-  {code:"undetermined", nm:"兜底：什么都没建立", color:"grey",
-   mean:"上述都不成立。绝不回退为 recorded——因为回退会使每个 bundle 看起来都'已结清'。",
-   ev:"须附'尝试了什么、为何什么都没建立'的记录。",
-   scene:"既查不到事件、来源又超时/拒绝，跨联邦也不明。诚实标 undetermined，而非假装结清。"}
+  {code:"recorded", nm:"Revocation event exists and was retrieved", color:"ok",
+   mean:"The source answered, and the answer is unambiguous: a revocation event exists and has been retrieved. The bundle itself settles the question of whether revocation occurred.",
+   ev:"Must carry a retrieved revocation-event reference (event ID / timestamp / source).",
+   scene:"A hiring platform finds a rev-9f2c event for that credential in the ca.example.org revocation list and retrieves it."},
+  {code:"not_recorded", nm:"Source answered: nothing in the interval", color:"warn",
+   mean:"The source answered, and the answer is that no revocation event is recorded for that interval. This supports a negative statement, but it is not equivalent to 'never revoked' (outside the interval is not covered).",
+   ev:"Must carry the source's negative answer as evidence (source, interval, answered-at time).",
+   scene:"The source answers: no revocation event recorded in [start, now). One may say 'no revocation in the queried interval', not 'never revoked network-wide'."},
+  {code:"query_failed", nm:"Source did not answer", color:"bad",
+   mean:"The source did not answer (timeout or refusal). Nothing is supported in either direction — neither 'not revoked' nor 'revoked'.",
+   ev:"Must carry a query-failure record (source, time, error/timeout).",
+   scene:"Querying ca.example.org times out after 5000 ms. The receiver side routinely conflates this with not_recorded; this field deliberately splits them apart."},
+  {code:"cross_federation_unsynchronised", nm:"Local negative, federation may hold a record", color:"info",
+   mean:"A local source answered negatively, but on this federation path another authority may hold that record. A local negative does not generalise to the whole.",
+   ev:"Must carry the coverage declaration for that federation path (which authorities are covered and which are not), and record the unsynchronised path in evidence.route.unsynced_path (route must be evaluated at the same instant as this field).",
+   scene:"Locally nothing is recorded, but federation-B / authority-C is either unsynchronised or was not queried — one cannot conclude network-wide non-revocation from this."},
+  {code:"undetermined", nm:"Fallback: nothing was established", color:"grey",
+   mean:"None of the above holds. Never fall back to recorded — falling back would make every bundle look 'settled'.",
+   ev:"Must carry a record of what was attempted and why nothing was established.",
+   scene:"No event could be found, the source timed out or refused, and the cross-federation position is unclear. Mark undetermined honestly, rather than pretending it is settled."}
 ];
 
 const grid = document.getElementById('grid');
@@ -127,23 +127,23 @@ function show(i){
   document.querySelector(`.state[data-i="${i}"]`).classList.add('active');
   const s=STATES[i];
   detail.innerHTML = `<h3><code>${s.code}</code> — ${s.nm}</h3>
-    <div class="row"><span class="k">含义</span><span>${s.mean}</span></div>
-    <div class="row"><span class="k">所需证据</span><span>${s.ev}</span></div>
-    <div class="row"><span class="k">场景示例</span><span>${s.scene}</span></div>`;
+    <div class="row"><span class="k">Meaning</span><span>${s.mean}</span></div>
+    <div class="row"><span class="k">Required evidence</span><span>${s.ev}</span></div>
+    <div class="row"><span class="k">Scenario</span><span>${s.scene}</span></div>`;
 }
 
 const SIM = [
-  {q:"来源返回一条撤销事件，且已取回", a:"recorded"},
-  {q:"来源回答：该区间未记录撤销事件", a:"not_recorded"},
-  {q:"查询来源超时 / 被拒绝，无回答", a:"query_failed"},
-  {q:"本地答无记录，但联邦另一路径可能另存", a:"cross_federation_unsynchronised"},
-  {q:"查不到事件 + 来源失败 + 跨联邦不明", a:"undetermined"}
+  {q:"The source returns a revocation event and it is retrieved", a:"recorded"},
+  {q:"The source answers: no revocation event recorded for the interval", a:"not_recorded"},
+  {q:"The source times out or refuses; no answer", a:"query_failed"},
+  {q:"Local answer is negative, but another federation path may hold a record", a:"cross_federation_unsynchronised"},
+  {q:"No event found + source failed + cross-federation unclear", a:"undetermined"}
 ];
 const simOpts=document.getElementById('simOpts');
 const simResult=document.getElementById('simResult');
 SIM.forEach(s=>{
   const b=document.createElement('button'); b.textContent=s.q;
-  b.onclick=()=>{ simResult.innerHTML=`来源响应：<b>${s.q}</b><br/>→ 正确取值：<span class="code">${s.a}</span>`; };
+  b.onclick=()=>{ simResult.innerHTML=`Source response: <b>${s.q}</b><br/>→ Correct value: <span class="code">${s.a}</span>`; };
   simOpts.appendChild(b);
 });
 </script>

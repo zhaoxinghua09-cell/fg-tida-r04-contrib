@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>R04 五值验证器 v2 · 外人可复跑</title>
+<title>R04 five-value validator v2 · outsider-runnable</title>
 <style>
   :root{--navy:#0C174D;--gold:#E5B85B;--ink:#101828;--muted:#5B6472;--line:#DEE2E9;--bg:#F7F8FA}
   *{box-sizing:border-box}
@@ -24,8 +24,8 @@
 </head>
 <body>
 <div class="wrap">
-  <h1>R04 五值验证器 v2</h1>
-  <div class="sub">外人可复跑：输入 JSON → 校验 → PASS/FAIL + 原因。五值：recorded / not_recorded / query_failed / cross_federation_unsynchronised / undetermined</div>
+  <h1>R04 five-value validator v2</h1>
+  <div class="sub">Outsider-runnable: paste JSON → validate → PASS/FAIL plus the reason. Five values: recorded / not_recorded / query_failed / cross_federation_unsynchronised / undetermined</div>
 
   <div class="card">
     <textarea id="input">{
@@ -42,25 +42,25 @@
 }</textarea>
     <div>
       <button id="validate">Validate</button>
-      <button id="example" class="gold">加载示例</button>
+      <button id="example" class="gold">Load example</button>
       <button id="selftest">Run built-in negative controls</button>
     </div>
     <pre id="out">—</pre>
   </div>
 
   <div class="card">
-    <h2 style="font-size:17px;color:var(--navy);margin:0 0 10px">规则（与 R04 支撑包一致）</h2>
+    <h2 style="font-size:17px;color:var(--navy);margin:0 0 10px">Rules (consistent with the R04 support package)</h2>
     <table>
-      <tr><th>value</th><th>必需 evidence</th><th>禁止携带</th></tr>
-      <tr><td><code>recorded</code></td><td>event_id / source / retrieved_at</td><td>query 错误</td></tr>
-      <tr><td><code>not_recorded</code></td><td>source / answer / answered_at</td><td>query_failed / undetermined 的字段</td></tr>
-      <tr><td><code>query_failed</code></td><td>error / attempted_at</td><td>answer（会像 not_recorded）</td></tr>
-      <tr><td><code>cross_federation_unsynchronised</code></td><td>local_source / local_answer / route.unsynced_path</td><td>recorded 证据</td></tr>
-      <tr><td><code>undetermined</code></td><td>attempted</td><td>event_id（recorded 证据）</td></tr>
+      <tr><th>value</th><th>Required evidence</th><th>Must not carry</th></tr>
+      <tr><td><code>recorded</code></td><td>event_id / source / retrieved_at</td><td>a query error</td></tr>
+      <tr><td><code>not_recorded</code></td><td>source / answer / answered_at</td><td>fields of query_failed / undetermined</td></tr>
+      <tr><td><code>query_failed</code></td><td>error / attempted_at</td><td>answer (would look like not_recorded)</td></tr>
+      <tr><td><code>cross_federation_unsynchronised</code></td><td>local_source / local_answer / route.unsynced_path</td><td>recorded evidence</td></tr>
+      <tr><td><code>undetermined</code></td><td>attempted</td><td>event_id (recorded evidence)</td></tr>
     </table>
   </div>
 
-  <p class="muted">不变量：无记录 ≠ 已撤销 ≠ 查询失败；undetermined 不得回落为 recorded。</p>
+  <p class="muted">Invariant: not recorded &#8800; revoked &#8800; query failed; undetermined must not fall back to recorded.</p>
 </div>
 <script>
 const VALUES = ["recorded","not_recorded","query_failed","cross_federation_unsynchronised","undetermined"];

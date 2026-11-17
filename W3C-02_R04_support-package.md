@@ -1,16 +1,16 @@
-# R04 支撑材料包（Supporting Materials for R04 Insertion · 草稿 v4 配套）
+# R04 Supporting Materials Package (companion to insertion draft v4)
 
-> 配套主稿：`W3C-02_R04_插入稿_草稿.md`（v4）。
-> 用途：作为 R04 书面提交物（经 07 邮箱发往 public-agent-identity）的**支持资料与 demo 实例**，使评审可独立核验，不依赖现场出席。
-> 状态：NOT FINAL，待 L3 单件确认才发。门3 红队压测中（B1/B2/B3 待闭合）。
+> Companion main document: `W3C-02_R04_InsertionDraft.md` (v4).
+> Purpose: to serve as the **supporting material and demo instance** for the R04 written submission (sent to public-agent-identity from the 07 mailbox), so that review can verify independently, without depending on attendance on site.
+> Status: NOT FINAL; to be sent only after per-item confirmation at L3. Under Gate 3 red-team pressure test (B1/B2/B3 pending closure).
 
 ---
 
-## A. 工作化示例：registry 招聘用例下 5 值逐一走通
+## A. Worked examples: the five values walked through one by one in a registry hiring use case
 
-**场景设定**：一个招聘平台（registry）在核验求职者上传的 agent 身份 bundle 时，需要就"该凭证的撤销否定"建立结论。bundle 携带 `revocation_establishment` 字段（本稿提议的必填字段）。以下逐值给出一份最小 bundle 片段 + 叙事。
+**Setting**: a hiring platform (registry) verifying an agent identity bundle uploaded by a candidate needs to reach a conclusion about "the revocation negative for that credential". The bundle carries a `revocation_establishment` field (the mandatory field proposed in this draft). Below, each value is given with a minimal bundle fragment plus a narrative.
 
-### A.1 `recorded` — 已建立"有撤销事件"
+### A.1 `recorded` — "a revocation event exists" is established
 ```json
 {
   "revocation_establishment": {
@@ -26,9 +26,9 @@
   }
 }
 ```
-叙事：来源回答了，且答案明确——**存在**一条撤销事件，且已被取回。bundle 自身的陈述结清了"是否被撤销"的问题，不再触发"谁签名/countersign"追问。
+Narrative: the source answered, and the answer is unambiguous — a revocation event **exists** and has been retrieved. The bundle's own statement settles the question of whether revocation occurred, and no longer triggers the "who signed / countersigned" follow-up.
 
-### A.2 `not_recorded` — 支持一条否定陈述
+### A.2 `not_recorded` — supports a negative statement
 ```json
 {
   "revocation_establishment": {
@@ -44,9 +44,9 @@
   }
 }
 ```
-叙事：来源**回答了**，答案是"该区间未记录撤销事件"。这**支持一条否定陈述**（"在已查区间未撤销"），但注意它不等同于"永远未撤销"——区间之外未覆盖。
+Narrative: the source **answered**, and the answer is "no revocation event recorded for that interval". This **supports a negative statement** ("not revoked within the queried interval"), but note that it is not equivalent to "never revoked" — outside that interval is not covered.
 
-### A.3 `query_failed` — 不支持任何陈述
+### A.3 `query_failed` — supports no statement in either direction
 ```json
 {
   "revocation_establishment": {
@@ -62,9 +62,9 @@
   }
 }
 ```
-叙事：来源**没有回答**（超时/拒绝）。因此**任何方向都不支持**——既不能说"未撤销"，也不能说"已撤销"。这是 receiver 线上最常把它和 `not_recorded` 混为一谈的情况，本字段要显式拆开。
+Narrative: the source **did not answer** (timeout or refusal). Nothing is therefore supported in either direction — one can say neither "not revoked" nor "revoked". This is the case most often conflated with `not_recorded` on the receiver side; this field deliberately splits them apart.
 
-### A.4 `cross_federation_unsynchronised` — 局部否定但联邦路径可能另存记录
+### A.4 `cross_federation_unsynchronised` — local negative, but a federation path may hold a separate record
 ```json
 {
   "revocation_establishment": {
@@ -83,9 +83,9 @@
   }
 }
 ```
-叙事：本地来源回答了否定，但在本联邦路径上**另一权威可能持有该记录**。因此本地否定**不推广到全局**。这是多联邦互操作场景下的关键区分，避免"本地没查到=全网没撤销"的错误结论。
+Narrative: the local source answered negatively, but on this federation path **another authority may hold that record**. The local negative therefore **does not generalise to the whole**. This distinction matters in multi-federation interoperability, and prevents the wrong conclusion "not found locally = not revoked network-wide".
 
-### A.5 `undetermined` — 兜底，什么都没建立
+### A.5 `undetermined` — the fallback; nothing was established
 ```json
 {
   "revocation_establishment": {
@@ -100,11 +100,11 @@
   }
 }
 ```
-叙事：上述都不成立。**绝不回退为 `recorded`**——因为可选/回退为 recorded 的字段会在交付压力下被留空，使每个 bundle 看起来都"已结清"，正是要消除的失效模式。
+Narrative: none of the above holds. **Never fall back to `recorded`** — an optional field, or one that falls back to recorded, gets left empty under delivery pressure, making every bundle look "settled", which is exactly the failure mode to be eliminated.
 
 ---
 
-## B. 字段 JSON Schema 草图（proposed，待对齐 v0.2 真实命名）
+## B. Field JSON Schema sketch (proposed; to be aligned with the real v0.2 naming)
 
 ```json
 {
@@ -132,7 +132,7 @@
       "properties": {
         "route": {
           "type": "object",
-          "description": "The federation path(s) actually consulted when the check ran. Recorded at the same instant as the rest of the outcome (R04 §二.3 / §evaluation-time). Source: 0000 'Recording the route'. Distinguishes 'negative was established, later became unverifiable' from 'negative was never established'.",
+          "description": "The federation path(s) actually consulted when the check ran. Recorded at the same instant as the rest of the outcome (R04 §2.3 / §evaluation-time). Source: 0000 'Recording the route'. Distinguishes 'negative was established, later became unverifiable' from 'negative was never established'.",
           "required": ["queried_paths"],
           "properties": {
             "queried_paths": { "type": "array", "items": { "type": "string" }, "description": "Authorities/registries queried at evaluation time (e.g. ca.example.org, federation-B)." },
@@ -144,44 +144,46 @@
   }
 }
 ```
-> 注：字段名 `revocation_establishment` 为**提议名**，须对齐 v0.2 真实字段名/章节锚点（红队 B1）。本草图不重定义 D3、不重命名 NOT_EVIDENCED / NOT_DETERMINED；`route`/`unsynced_path` 已据 0000 真源补齐（红队 V1 闭合）。
+> Note: the field name `revocation_establishment` is a **proposed name** and must be aligned with the real v0.2 field name and section anchor (red-team item B1). This sketch does not redefine D3 and does not rename NOT_EVIDENCED / NOT_DETERMINED; `route` / `unsynced_path` have been completed against the genuine 0000 source (red-team item V1 closed).
 
 ---
 
-## C. 边界与不变量分析（红队维度5 配套论证）
+## C. Boundary and invariant analysis (supporting argument for red-team dimension 5)
 
-1. **不变量（核心）**：字段**必填**；当什么都建立不了时取值**必须为 `undetermined`**，**绝不回退为 `recorded`**。理由见 A.5。
-2. **evaluator-side 记录**：在产出其余结果同一时刻记录，沿用包内"评估方结果 vs 输入"分离规则。稍后重查的 relying party 记录它自己的值；bundle 须注明携带的是哪个，否则陈旧答案会被读成当前。
-3. **评估时点对齐**：本字段的取值，连同其 `evidence.route`（对 `cross_federation_unsynchronised` 即 `unsynced_path`），须与其余条件在**同一时刻**评估，不得单独评估；否则 bundle 内部一致却携带一个仅更早成立的 route。
-4. **与既有术语的非重叠映射**：
-   - **D3（fetch statuses）** = 制品是否可取回 / 是否尝试取回（**传输层**）。
-   - **本字段** = 取回**之后**，关于撤销否定建立了什么（**语义层**）。
-   - `NOT_DETERMINED`（D3）≠ 本字段 `undetermined`：前者是传输层"取回无法确定"，后者是语义层"即便制品已取回，撤销否定仍无法建立"。为不引入重叠术语，本稿仅在 D3 之上新增一个独立的、必填的、评估方侧的字段。
-   - **透明声明（红队 V2）**：「D3 fetch statuses」「NOT_EVIDENCED」「NOT_DETERMINED」是 Raphael（0001）指出的本组既有注册表/撤销测试设计中的术语（见 0001 原话）。本稿**仅引用、不重定义**，其精确规范锚点（v0.2 测试规范 RI-INTEROP-HIRE-001）按 B3 待 v0.2 change record 确认；**本稿未编造 URL**。真实可达的一手源已 pin：0000 = `https://lists.w3.org/Archives/Public/public-agent-identity/2026Nov/0000.html` ，0001 = `https://lists.w3.org/Archives/Public/public-agent-identity/2026Nov/0001.html` 。
+1. **Invariant (core)**: the field is **mandatory**; when nothing at all can be established the value **must be `undetermined`** and **must never fall back to `recorded`**. Rationale in A.5.
+2. **Evaluator-side recording**: record it at the same instant as the rest of the outcome, following the in-package separation rule of "evaluator result versus input". A relying party that re-checks later records its own value; the bundle must state which one it carries, otherwise a stale answer will be read as current.
+3. **Evaluation-instant alignment**: the value of this field, together with its `evidence.route` (for `cross_federation_unsynchronised`, its `unsynced_path`), must be evaluated at the **same instant** as the other conditions and must not be evaluated separately; otherwise the bundle is internally consistent while carrying a route that only held earlier.
+4. **Non-overlapping mapping to existing terminology**:
+   - **D3 (fetch statuses)** = whether the artefact can be retrieved / whether retrieval was attempted (**transport layer**).
+   - **This field** = what is established about the revocation negative **after** retrieval (**semantic layer**).
+   - `NOT_DETERMINED` (D3) is not the same as this field's `undetermined`: the former is the transport-layer statement "retrieval cannot be determined", the latter is the semantic-layer statement "even though the artefact was retrieved, the revocation negative still cannot be established". To avoid introducing overlapping terminology, this draft adds only one independent, mandatory, evaluator-side field on top of D3.
+   - **Plain disclosure (red-team item V2)**: "D3 fetch statuses", "NOT_EVIDENCED" and "NOT_DETERMINED" are terms from this group's existing registry/revocation test design, as pointed out by Raphael (0001) (see the wording in 0001). This draft **cites them only and does not redefine them**; their precise normative anchor (v0.2 test specification RI-INTEROP-HIRE-001) awaits confirmation of the v0.2 change record per B3; **this draft invents no URL**. The genuinely reachable primary sources are pinned: 0000 = `https://lists.w3.org/Archives/Public/public-agent-identity/2026Nov/0000.html`, 0001 = `https://lists.w3.org/Archives/Public/public-agent-identity/2026Nov/0001.html`.
 
 ---
 
-## D. 与既有术语的关系（文字图）
+## D. Relationship to existing terminology (text diagram)
 
 ```
-                [ 凭证 bundle 呈现 ]
+                [ credential bundle presentation ]
                           |
-                [ D3: fetch statuses ]  --- 传输层：可取回？尝试取回？
-                          | (取回成功之后)
+                [ D3: fetch statuses ]  --- transport layer: retrievable? retrieval attempted?
+                          | (after successful retrieval)
                           v
-          [ revocation_establishment (本稿新增, 必填) ]  --- 语义层：撤销否定建立了什么？
+          [ revocation_establishment (new in this draft, mandatory) ]  --- semantic layer: what was established about the negative?
                           |
         +-----------------+-----------------+-----------------+-----------------+
         v                 v                 v                 v                 v
    recorded        not_recorded       query_failed   cross_federation_   undetermined
-   (有事件,已取回)   (来源答:无记录)   (来源未答)      unsynchronised      (兜底,绝不回退recorded)
-                                                 (本地否定,联邦或另存)
+   (event exists,   (source answered:  (source did     unsynchronised      (fallback; never
+    retrieved)       nothing recorded)  not answer)    (local negative;     falls back to
+                                                        federation may       recorded)
+                                                        hold a record)
 ```
 
 ---
 
-## E. demo 实例（可视化）
+## E. Demo instance (visual)
 
-配套交互式 demo：`R04_demo_5values.html`（单文件，可直接在浏览器打开 / 附于 07 邮箱提交）。展示 5 值卡片 + 不变量高亮 + 一个可点击切换的"bundle 评估"小演示，使评审无需部署即可理解区分。
+Companion interactive demo: `R04_demo_5values.html` (single file; opens directly in a browser / attach to the 07 mailbox submission). It presents five value cards + a highlighted invariant + a clickable "bundle evaluation" mini-demo, so that reviewers can grasp the distinctions without deploying anything.
 
-> 门7 备注：demo 已发布至理论号公开仓 `zhaoxinghua09-cell/fg-tida-r04-contrib`，外人零凭据可直接实测：`https://github.com/zhaoxinghua09-cell/fg-tida-r04-contrib/blob/main/R04_demo_5values.html`
+> Gate 7 note: the demo is published in the theory-account public repository `zhaoxinghua09-cell/fg-tida-r04-contrib`; anyone can run it with zero credentials: `https://github.com/zhaoxinghua09-cell/fg-tida-r04-contrib/blob/main/R04_demo_5values.html`
