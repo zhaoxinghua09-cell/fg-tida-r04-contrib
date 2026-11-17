@@ -56,13 +56,17 @@
 | **stevenzhao07** (product account · MedXpert product tool-chain GitHub account) | Tool-chain implementation | C8 use case (anonymised field test of a medical-device compliance tool chain) | Tool-chain implementer (use-case provider, individual capacity) | Only as tested party / use-case provider; does not take part in drafting the standard text |
 | **Medxpert-org** (organisation account) | Organisation-level publication | Organisational assets kept separate from the three individual accounts | Organisation | Kept distinct from the three personal accounts; no duplicate submission of the same content |
 
-> Note: stevenzhao07 is the MedXpert product tool-chain GitHub account and is a differently positioned account from zhaoxinghua07@126.com (the W3C standards-participation mailbox); the two are not mixed. The division of labour across all four accounts is recorded in `THREE_ACCOUNT_ACTION_PLAN.md`.
+> Note — **which mailbox to use, stated explicitly**. The two mailboxes are platform-specific and are never mixed:
+> - **`zhaoxinghua06@126.com`** — the **ITU** mailbox. This is the address used to register at itu.int and to sign in to the FG-TIDA work area; it is the contact address for anything submitted to ITU.
+> - **`zhaoxinghua07@126.com`** — the **W3C** standards-participation mailbox. This is the address that received W3C comment 0001; it is used for W3C correspondence.
+>
+> Separately, `stevenzhao07` is the MedXpert product tool-chain **GitHub account** — a GitHub identity, not a mailbox, and not to be confused with the 07 mailbox. The division of labour across all four GitHub accounts is recorded in `THREE_ACCOUNT_ACTION_PLAN.md`.
 
 **Four conflict-avoidance rules**:
 1. One contribution package carries exactly one identity (never co-bidding on the same work item).
 2. The same content is never submitted twice under two accounts.
 3. Theory versions always cite lgd-theory (DOI); any paraphrase defers to the SSOT.
-4. Externally, everything is presented in an individual capacity (the accounts divide the work, each with its role); communication with ITU uses a single coordinating mailbox / account.
+4. Externally, everything is presented in an individual capacity (the accounts divide the work, each with its role); ITU correspondence uses the single coordinating mailbox **`zhaoxinghua06@126.com`**; W3C correspondence uses **`zhaoxinghua07@126.com`**. The coordinating mailbox for ITU is therefore a single, named address, so a rapporteur or the secretariat has exactly one point of contact.
 
 ---
 

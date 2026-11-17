@@ -1,19 +1,37 @@
 FG-TIDA R04 Contribution Drafts
-Copyright (c) 2026 赵兴华 / Steven Zhao·China (ORCID 0009-0001-0512-1237)
+Copyright (c) 2026 Xinghua Zhao (Steven Zhao), China — ORCID 0009-0001-0512-1237
 
-本仓全部文本以 Creative Commons Attribution 4.0 International (CC BY 4.0) 发布。
-Full legal text: https://creativecommons.org/licenses/by/4.0/
+This repository is licensed under the Creative Commons Attribution 4.0
+International Public License (CC BY 4.0).
 
-你可以自由地共享（以任何媒介或格式复制、再分发）与演绎（修改、转换、以本素材为基础创作），
-包括商业目的，条件是：
+    Creative Commons Attribution 4.0 International Public License
+    https://creativecommons.org/licenses/by/4.0/legalcode
 
-  ATTRIBUTION — 你必须给出适当署名、提供许可链接，并说明是否作出修改。
-  建议署名格式：
-    赵兴华 / Steven Zhao·China, "FG-TIDA R04 贡献草稿", CC BY 4.0,
+You are free to:
+
+    Share — copy and redistribute the material in any medium or format
+    Adapt — remix, transform, and build upon the material for any purpose,
+            even commercially.
+
+Under the following terms:
+
+    Attribution — You must give appropriate credit, provide a link to the
+    license, and indicate if changes were made. You may do so in any
+    reasonable manner, but not in any way that suggests the licensor
+    endorses you or your use.
+
+    No additional restrictions — You may not apply legal terms or
+    technological measures that legally restrict others from doing
+    anything the license permits.
+
+Suggested attribution:
+
+    Xinghua Zhao (Steven Zhao), "FG-TIDA R04 contribution drafts", CC BY 4.0,
     https://github.com/zhaoxinghua09-cell/fg-tida-r04-contrib
 
-  NO ADDITIONAL RESTRICTIONS — 你不得施加法律条款或技术措施，
-  在法律上限制他人做许可所允许的事。
+The license does not grant trademark rights, patent rights, or rights of
+publicity or privacy. The text is provided "as is", without warranties of
+any kind.
 
-本许可不授予商标权、专利权或形象权。文本按「现状」提供，不附任何担保。
-本仓为个人贡献草稿，不是 ITU 文件，不代表 ITU 或其成员立场。
+This repository holds individual contribution drafts. It is not an ITU
+document and does not represent the views of ITU or its members.
