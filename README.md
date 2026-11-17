@@ -34,3 +34,12 @@ A publicly available draft can be checked by third parties; a draft that exists 
 ---
 
 Maintainer: Xinghua Zhao / Steven Zhao · China · ORCID 0009-0001-0512-1237
+
+## Contact
+
+- ITU / FG-TIDA correspondence: **zhaoxinghua06@126.com**
+- W3C correspondence: **zhaoxinghua07@126.com**
+
+The two addresses are platform-specific and are not interchangeable: the 06 mailbox is
+the accounts registered at itu.int, and the 07 mailbox is the one that received W3C
+comment 0001. Please use the ITU address for anything relating to FG-TIDA.
