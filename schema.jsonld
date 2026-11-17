@@ -25,10 +25,6 @@
       "name": "Independent researcher"
     }
   },
-  "publisher": {
-    "@type": "Organization",
-    "name": "ITU-T FG-TIDA (target venue, not publisher)"
-  },
   "isBasedOn": {
     "@id": "https://doi.org/10.5281/zenodo.22456647"
   },
