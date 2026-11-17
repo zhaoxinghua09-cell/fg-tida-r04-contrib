@@ -1,0 +1,31 @@
+{
+  "title": "FG-TIDA R04 contribution material (working drafts)",
+  "description": "<p>Working drafts of material intended for contribution to ITU-T FG-TIDA. Not adopted by any standards body. Not submitted. Cite a specific file at a specific commit, and state that it is a draft.</p><p>Files: supporter positioning (C1-C8), the R04 insertion draft proposing a <code>revocation_establishment</code> field, a support package with five worked examples and a JSON Schema sketch, and two self-contained browser demos.</p>",
+  "upload_type": "publication",
+  "publication_type": "technicalnote",
+  "publication_date": "2026-11-17",
+  "version": "v0.4-draft",
+  "creators": [
+    {
+      "name": "Zhao, Xinghua",
+      "orcid": "0009-0001-0512-1237",
+      "affiliation": "Independent researcher"
+    }
+  ],
+  "license": "cc-by-4.0",
+  "keywords": [
+    "trust lifecycle",
+    "runtime verification",
+    "revocation",
+    "ITU-T FG-TIDA",
+    "working draft"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.5281/zenodo.22456647",
+      "relation": "isSupplementedBy",
+      "scheme": "doi"
+    }
+  ],
+  "notes": "Working drafts. Not adopted by any standards body. Not submitted as of 2026-11-17. Statements inside the drafts are subject to the primary source on the day of citation."
+}

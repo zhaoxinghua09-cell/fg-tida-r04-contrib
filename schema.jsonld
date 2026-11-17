@@ -1,0 +1,79 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "orcid": {
+      "@id": "https://schema.org/identifier",
+      "@type": "@id"
+    },
+    "spdx": "https://spdx.org/licenses/"
+  },
+  "@type": "CreativeWork",
+  "@id": "https://github.com/zhaoxinghua09-cell/fg-tida-r04-contrib#metadata",
+  "name": "FG-TIDA R04 contribution material (working drafts)",
+  "description": "Working drafts of material intended for contribution to ITU-T FG-TIDA. Not adopted by any standards body. Not submitted. Cite a specific file at a specific commit, and state that it is a draft.",
+  "version": "v0.4-draft",
+  "datePublished": "2026-11-17",
+  "dateModified": "2026-11-17",
+  "creativeWorkStatus": "Draft",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "author": {
+    "@type": "Person",
+    "name": "Xinghua Zhao",
+    "identifier": "https://orcid.org/0009-0001-0512-1237",
+    "affiliation": {
+      "@type": "Organization",
+      "name": "Independent researcher"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "ITU-T FG-TIDA (target venue, not publisher)"
+  },
+  "isBasedOn": {
+    "@id": "https://doi.org/10.5281/zenodo.22456647"
+  },
+  "keywords": [
+    "trust lifecycle",
+    "runtime verification",
+    "revocation",
+    "ITU-T FG-TIDA"
+  ],
+  "hasPart": [
+    {
+      "@type": "CreativeWork",
+      "name": "FG-TIDA-SUPPORTER-CONTRIBUTIONS.md",
+      "description": "Supporter positioning and contribution points C1-C8",
+      "encodingFormat": "text/markdown"
+    },
+    {
+      "@type": "TechArticle",
+      "name": "W3C-02_R04_InsertionDraft.md",
+      "description": "The R04 insertion draft: the revocation_establishment field proposal",
+      "encodingFormat": "text/markdown",
+      "creativeWorkStatus": "Draft"
+    },
+    {
+      "@type": "TechArticle",
+      "name": "W3C-02_R04_support-package.md",
+      "description": "Five worked examples, JSON Schema sketch, boundary analysis, terminology diagram",
+      "encodingFormat": "text/markdown",
+      "creativeWorkStatus": "Draft"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "R04_demo_5values.html",
+      "description": "Interactive demo: five value cards plus a mini-simulator",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Web browser",
+      "encodingFormat": "text/html"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "R04_demo_5values_v2.html",
+      "description": "Minimal validator: paste a bundle JSON, get PASS/FAIL with the reason; includes a built-in negative self-test",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Web browser",
+      "encodingFormat": "text/html"
+    }
+  ]
+}

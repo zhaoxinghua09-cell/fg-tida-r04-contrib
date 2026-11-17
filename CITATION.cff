@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: >-
+  This repository holds working drafts, not adopted or submitted material.
+  When citing, name a specific file at a specific commit of this repository,
+  and state that the material is a draft.
+title: "FG-TIDA R04 contribution material (working drafts)"
+version: "v0.4-draft"
+date-released: "2026-11-17"
+license: CC-BY-4.0
+type: generic
+authors:
+  - family-names: "Zhao"
+    given-names: "Xinghua"
+    orcid: "0009-0001-0512-1237"
+repository-code: "https://github.com/zhaoxinghua09-cell/fg-tida-r04-contrib"
+url: "https://github.com/zhaoxinghua09-cell/fg-tida-r04-contrib"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.22456647"
+    description: "Theory record in Zenodo. This is not the DOI of these drafts."
+keywords:
+  - "trust lifecycle"
+  - "runtime verification"
+  - "revocation"
+  - "ITU-T FG-TIDA"
+  - "working draft"
